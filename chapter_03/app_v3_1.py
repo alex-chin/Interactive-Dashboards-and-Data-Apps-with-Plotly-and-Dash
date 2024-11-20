@@ -1,6 +1,6 @@
 import dash
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import dcc
+from dash import html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 import plotly.graph_objects as go
@@ -24,6 +24,11 @@ population_df = poverty_data[~poverty_data['Country Name'].isin(regions) &
 app.layout = html.Div([
     html.H1('Poverty And Equity Database'),
     html.H2('The World Bank'),
+    dcc.Slider(2000, 2019, 1,
+               value=2000,
+               id='my-slider'
+               ),
+    dcc.Slider(id='year_slider', value=2000, marks={year: str(year) for year in range(2000, 2019)}),
     dcc.Dropdown(id='country',
                  options=[{'label': country, 'value': country}
                           for country in poverty_data['Country Name'].unique()]),
